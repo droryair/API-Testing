@@ -21,13 +21,13 @@ class WeatherAPITestCase(unittest.TestCase):
         self.assertIn('clear sky', response.json()['weather'][0]['description'])
         self.assertEqual(293.15, response.json()['main']['temp'])
 
-
-    def test_get_weather_default(self):
+    @requests_mock.Mocker()
+    def test_get_weather_default(self, mock):
         """
         Testing how the app behaves when given an empty city name.
         """
-        city=''
-        response = requests.get(f'{self.base_url}?city={city}')
+        mock.get(f'{self.base_url}?city=', json={'name':'Jerusalem'})
+        response = requests.get(f'{self.base_url}?city=')
         self.assertEqual(response.status_code, 200)
         self.assertIn('Jerusalem', response.json()['name'])
 
