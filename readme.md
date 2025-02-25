@@ -53,14 +53,14 @@ ___
      - Weather data:
        - 'clear sky' description
        - 293.15 degrees
-3) test_get_weather_default:
+2) test_get_weather_default:
    * Testing how the app behaves when given an empty city name.
    * Input:
      - city=''
    * Expected:
      - response code == 200.
      - city == 'Jerusalem'.
-5) test_get_weather_error:
+3) test_get_weather_error:
    * Testing how the weather-app behaves when given a invalid city name.
    * Input:
      - city = 'InvalidCity'
