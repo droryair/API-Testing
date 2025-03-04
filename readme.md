@@ -11,11 +11,13 @@ ___
 
 1) Create an API key from [OpenWeatherMap](https://openweathermap.org/api).
 
-2) Go to [weather-app](weather-app), or, run from the main project directory: `cd ./weather-app`.
+2) Clone the project.
 
-3) Create an `.env` file, or, run: `touch .env`.
+3) Go to [weather-app](weather-app), or, run from the main project directory: `cd ./weather-app`.
 
-4) Put your API Key in the `.env` file:
+4) Create an `.env` file, or, run: `touch .env`.
+
+5) Put your API Key in the `.env` file:
    ```.env
    API_KEY=<your-api-key>
    ```
@@ -24,24 +26,31 @@ ___
    
    * __Do not__ put quotetion marks around the key.
 
-  ### Run the wheather app:
+  ## Run the Wheather App:
 
    1. From the [weather-app](weather-app) directory, run `node index.js`.
      
    2. To ensure the app is running properly, visit: [http://localhost:3000/weather?city=London](http://localhost:3000/weather?city=London), expecting a valid json response.
 
-### Run the test:
-   
-   1. While the weather-app is running, go to [python-tests](python-tests).
-   
-   2.   Open a new terminal and run: `python -m unittest test_weather.py`
+## Run the Tests:
 
 > [!IMPORTANT]
 > The weather-app must run in the backround for the tests to execute successfully.
 > 
 > Do not close the weather-app terminal or stop its process.
+   
+   1. While the weather-app is running, go to [python-tests](python-tests).
+   
+   2.   Open a new terminal.
 
-### Tests Explanation:
+         2.1. For unit tests: run: `python -m unittest unit_test_weather.py`
+
+         2.2. For integration tests: run `python -m unittest integration_test_weather.py`
+
+## Tests Explanation:
+
+### Unit Tests (mocked responses):
+
 1) test_get_weather:
    * Testing how the weather-app behaves when given a valid city name and weather information.
    * Input:
@@ -66,4 +75,28 @@ ___
      - city = 'InvalidCity'
    * Expected:
      - response code == 500.
-     
+
+### Integration Tests (real responses):
+
+1) test_weather
+   * Testing real API request with valid city name.
+   * Input:
+     - city = 'London'
+   * Expected:
+     - response code == 200
+     - city name == 'London
+       
+3) test_get_weather_error
+   * Testing real API request with invalid city name.
+   * Input:
+     - city = 'InvalidCity'
+   * Expected:
+     - response code == 500 
+   
+5) test_get_weather_default
+    * Testing real API request with no city name.
+    * Input:
+      - city = ''
+    * Expected:
+      - response code == 200 
+      - city == 'Jerusalem'
